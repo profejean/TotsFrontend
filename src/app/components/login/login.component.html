@@ -1,0 +1,49 @@
+<div class="min-h-screen flex items-center justify-center bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?fit=crop&w=1050&q=80');">
+
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    
+
+    <div class="relative z-10 bg-white bg-opacity-90 shadow-2xl rounded-lg p-10 max-w-md w-full space-y-6 backdrop-blur-lg">
+      <h2 class="text-4xl font-bold text-center text-gray-900">Bienvenido</h2>
+      <p class="text-gray-600 text-center">Inicia sesión para continuar</p>
+  
+      <form (ngSubmit)="login()" class="space-y-4">
+        <div>
+          <label for="email" class="text-gray-700 font-semibold">Correo Electrónico</label>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            class="mt-1 w-full p-3 bg-white bg-opacity-70 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+            placeholder="ejemplo@correo.com"
+            required
+          />
+        </div>
+        <div>
+          <label for="password" class="text-gray-700 font-semibold">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            class="mt-1 w-full p-3 bg-white bg-opacity-70 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+            placeholder="Ingresa tu contraseña"
+            required
+          />
+        </div>
+  
+        <button
+          type="submit"
+          class="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-400 transition ease-in-out duration-200"
+        >
+          Iniciar Sesión
+        </button>
+  
+        <p class="text-center text-sm text-gray-600 mt-4">
+          ¿Olvidaste tu contraseña? <a href="/forgot-password" class="text-blue-500 hover:underline">Recupérala aquí</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  
