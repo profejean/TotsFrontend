@@ -69,6 +69,7 @@ export class LandingComponent implements OnInit {
   readonly sceneGraph = Experience;
 
   ngOnInit(): void {
+    console.log('Landing component initialized');
     // Preload the GLTF model before rendering the scene
     injectGLTF.preload(
       () => process.env['MODEL_URL'] || '/assets/models/default.gltf'

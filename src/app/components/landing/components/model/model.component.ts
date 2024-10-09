@@ -5,6 +5,9 @@ import {
   Inject,
   PLATFORM_ID,
   TemplateRef,
+  input, 
+  signal, 
+  Signal
 } from '@angular/core';
 import {
   CommonModule,
@@ -13,7 +16,6 @@ import {
 } from '@angular/common';
 import { Group, Vector3 } from 'three';
 import { injectGLTF } from 'angular-three-soba/loaders';
-import { input, signal, Signal } from '@angular/core';
 import { Marker } from '../marker/marker.component';
 import { MarkerIcon } from '../marker-icon/marker-icon.component';
 import {
@@ -52,9 +54,9 @@ import {
           <app-marker [position]="[0, 1.3, 0]" [rotation]="[0, Math.PI / 2, 0]">
             <app-marker-icon color="text-orange-500" />
           </app-marker>
-          <ngt-group [position]="[0, 0, 1.3]" [rotation]="[0, 0, Math.PI]">
-            <app-marker [rotation]="[0, Math.PI / 2, Math.PI / 2]">
-              <app-marker-icon color="text-red-500" [withText]="true" />
+          <ngt-group [position]="[0, 0, 1.3]" [rotation]="[0, 0, Math.PI]">          
+            <app-marker [spaceId]="'1'" [position]="[0, 1.3, 0]" [rotation]="[0, Math.PI / 2, 0]">
+                <app-marker-icon color="text-orange-500"></app-marker-icon>
             </app-marker>
           </ngt-group>
         </ngt-mesh>
@@ -80,8 +82,38 @@ export class Model {
   ) as Signal<any>;
 
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
-    if (!isPlatformBrowser(this.platformId)) {
-      this.gltf = signal(null);
-    }
+      const gltfPath = process.env['MODEL_URL'] || '';
+      console.log('Attempting to load GLTF from:', gltfPath);
+
+      injectGLTF.preload(() => gltfPath);
+
+      if (!isPlatformBrowser(this.platformId)) {
+          this.gltf = signal(null);
+      } else {
+          this.gltf = injectGLTF(() => gltfPath) as Signal<any>;
+      }
+      
+      console.log('Model loaded with GLTF:', this.gltf());
+  }
+
+  ngOnInit() {
+    console.log('Position for Marker 1:', [0, 1.3, 0]);
+    console.log('Rotation for Marker 1:', [0, Math.PI / 2, 0]);
+    console.log('Position for Marker 2:', [0, 0, 1.3]);
+    console.log('Rotation for Marker 2:', [0, 0, Math.PI]);
+
+    fetch('/assets/models/earth.gltf')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('GLTF File fetched successfully:', data);
+    })
+    .catch(error => {
+      console.error('Error fetching GLTF File:', error);
+    });
   }
 }

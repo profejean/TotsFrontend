@@ -2,19 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  input,
   Input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgtHTML } from 'angular-three';
-import { NgtsHTMLContent } from 'angular-three-soba/misc';
 
 @Component({
   selector: 'app-marker-icon',
   standalone: true,
   template: `
     <div
-      *ngIf="withText()"
+      *ngIf="withText"
       style="position: absolute; font-size: 10px; letter-spacing: -0.5px; left: 17.5px"
     >
       north
@@ -24,7 +22,7 @@ import { NgtsHTMLContent } from 'angular-three-soba/misc';
       viewBox="0 0 20 20"
       fill="currentColor"
       class="size-5"
-      [class]="color()"
+      [class]="color"
     >
       <path
         fill-rule="evenodd"
@@ -53,4 +51,13 @@ export class MarkerIcon extends NgtHTML {
   @Input() color: string = 'text-orange-500';
   @Input() withText: boolean = false;
   @Input() label: string = 'Espacio';
+
+  constructor() {
+    super();
+    console.log('MarkerIcon initialized with color:', this.color, 'and withText:', this.withText);
+  }
+
+  ngOnInit() {
+    console.log('MarkerIcon created with label:', this.label);
+  }
 }
