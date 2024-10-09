@@ -13,9 +13,9 @@ import { NgtHTML } from 'angular-three';
   template: `
     <div
       *ngIf="withText"
-      style="position: absolute; font-size: 10px; letter-spacing: -0.5px; left: 17.5px"
+      style="position: absolute; font-size: 1.2rem; letter-spacing: -0.5px; left: 20px; text-rendering: optimizeLegibility;"
     >
-      north
+      {{ label }}
     </div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +31,7 @@ import { NgtHTML } from 'angular-three';
       />
     </svg>
   `,
+
   styles: [
     `
       svg {
@@ -54,7 +55,12 @@ export class MarkerIcon extends NgtHTML {
 
   constructor() {
     super();
-    console.log('MarkerIcon initialized with color:', this.color, 'and withText:', this.withText);
+    console.log(
+      'MarkerIcon initialized with color:',
+      this.color,
+      'and withText:',
+      this.withText
+    );
   }
 
   ngOnInit() {
