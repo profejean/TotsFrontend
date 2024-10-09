@@ -1,0 +1,11 @@
+<div class="space-detail" *ngIf="space">
+  <h1>{{ space.name }}</h1>
+  <p>{{ space.description }}</p>
+  <p><strong>Capacidad:</strong> {{ space.capacity }}</p>
+  <p><strong>Disponibilidad:</strong> {{ space.availability }}</p>
+  <button (click)="reserve()">Reservar este espacio</button>
+</div>
+
+<div *ngIf="!space">
+  <p>Espacio no encontrado.</p>
+</div>
